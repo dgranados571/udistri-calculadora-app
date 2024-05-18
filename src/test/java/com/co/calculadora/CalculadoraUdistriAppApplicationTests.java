@@ -22,7 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class CalculadoraUdistriAppApplicationTests {
 
-	static String abcdario = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Danny
+	static String abcdario = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	@Test
 	void contextLoads() {
