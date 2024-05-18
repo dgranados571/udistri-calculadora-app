@@ -1,0 +1,14 @@
+<div class="container pt-3">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			<div th:if="${messageError}" class="div-message-error">
+				<p class="parrafo-informacion" th:text="${messageError}">
+				</p>
+			</div>
+			<div th:if="${messageInfo}" class="div-message-info">
+				<p class="parrafo-informacion" th:text="${messageInfo}">
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8" />
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+	<link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+	<div class="container pt-3">
+		<p class="parrafo-titulo-1">CALCULADORA - Informática I -- Microservicios con Python</p>
+		<p class="parrafo-titulo-2">Actividad 3 -- Danny Granados, Gian Carlo Chacon y Jorge Ivan Guzman</p>
+	</div>
+	<div class="container pt-3">
+		<div class="row">
+			<div class="col-xs-12 col-sm-2 col-md-4"></div>
+			<div class="col-xs-12 col-sm-8 col-md-4">
+				<p class="parrafo-titulo-1" id="vistaValor">0</p>
+				<div class="div-number-container">
+					<div class="div-number" onclick="actionButtomItem(7)">
+						7
+					</div>
+					<div class="div-number" onclick="actionButtomItem(8)">
+						8
+					</div>
+					<div class="div-number" onclick="actionButtomItem(9)">
+						9
+					</div>
+					<div class="div-number" onclick="operationAction('DIVIDE')">
+						/
+					</div>
+				</div>
+				<div class="div-number-container">
+					<div class="div-number" onclick="actionButtomItem(4)">
+						4
+					</div>
+					<div class="div-number" onclick="actionButtomItem(5)">
+						5
+					</div>
+					<div class="div-number" onclick="actionButtomItem(6)">
+						6
+					</div>
+					<div class="div-number" onclick="operationAction('MULTIPLICA')">
+						*
+					</div>
+				</div>
+				<div class="div-number-container">
+					<div class="div-number" onclick="actionButtomItem(1)">
+						1
+					</div>
+					<div class="div-number" onclick="actionButtomItem(2)">
+						2
+					</div>
+					<div class="div-number" onclick="actionButtomItem(3)">
+						3
+					</div>
+					<div class="div-number" onclick="operationAction('RESTA')">
+						-
+					</div>
+				</div>
+				<div class="div-number-container">
+					<div class="div-number" onclick="actionButtomItem(0)">
+						0
+					</div>
+					<div class="div-number" onclick="operationActionResult()">
+						=
+					</div>
+					<div class="div-number" onclick="clearButtomItem()">
+						Clr
+					</div>
+					<div class="div-number" onclick="operationAction('SUMA')">
+						+
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-2 col-md-4"></div>
+		</div>
+	</div>
+	<div th:replace="fragments/mensajesControl"></div>
+	<form id="calculadoraAction" method="POST" th:action="@{/web/operation}" th:object="${formObject}">
+		<input type="hidden" name="num1Action" value="0" id="num1Action" th:field="*{num1Action}">
+		<input type="hidden" name="num2Action" value="0" id="num2Action" th:field="*{num2Action}">
+		<input type="hidden" name="operatiosnAction" id="operatiosnAction" th:field="*{operatiosnAction}">
+	</form>
+</body>
+<script>
+
+	function operationActionResult() {
+		document.getElementById('calculadoraAction').submit();
+	}
+
+	function operationAction(operation) {
+
+		vistaValor = document.querySelector('#vistaValor');
+		vistaValorValue = vistaValor.getAttribute('value');
+
+		operatiosnAction = document.querySelector('#operatiosnAction');
+		operatiosnAction.setAttribute('value', operation);
+
+		let operationSimbol = "";
+		switch (operation) {
+			case 'SUMA':
+				operationSimbol = "+";
+				break;
+			case 'RESTA':
+				operationSimbol = "-";
+				break;
+			case 'MULTIPLICA':
+				operationSimbol = "*";
+				break;
+			case 'DIVIDE':
+				operationSimbol = "/";
+				break;
+			default:
+				console.log('No hay Simbolo');
+		}
+		vistaValor.setAttribute('value', vistaValorValue + " " + operationSimbol + " ");
+		vistaValor.innerHTML = vistaValor.getAttribute('value')
+	}
+
+	function actionButtomItem(buttomItem) {
+
+		operatiosnAction = document.querySelector('#operatiosnAction');
+		operatiosnActionalue = operatiosnAction.getAttribute('value');
+
+		vistaValor = document.querySelector('#vistaValor');
+
+		if (!!operatiosnActionalue) {
+			num2Action = document.querySelector('#num2Action');
+			num2ActionValue = num2Action.getAttribute('value');
+			if (!!num2ActionValue) {
+				num2Action.setAttribute('value', num2ActionValue + buttomItem);
+			} else {
+				num2Action.setAttribute('value', buttomItem);
+			}
+			let operationSimbol = "";
+			switch (operatiosnActionalue) {
+				case 'SUMA':
+					operationSimbol = "+";
+					break;
+				case 'RESTA':
+					operationSimbol = "-";
+					break;
+				case 'MULTIPLICA':
+					operationSimbol = "*";
+					break;
+				case 'DIVIDE':
+					operationSimbol = "/";
+					break;
+				default:
+					console.log('No hay Simbolo');
+			}
+			vistaValor.setAttribute('value', num1Action.getAttribute('value') + " " + operationSimbol + " " + num2Action.getAttribute('value'));
+		} else {
+			num1Action = document.querySelector('#num1Action');
+			num1ActionValue = num1Action.getAttribute('value');
+			if (!!num1ActionValue) {
+				num1Action.setAttribute('value', num1ActionValue + buttomItem);
+			} else {
+				num1Action.setAttribute('value', buttomItem);
+			}
+			vistaValor.setAttribute('value', num1Action.getAttribute('value'));
+		}
+		vistaValor.innerHTML = vistaValor.getAttribute('value');
+	}
+
+	function clearButtomItem() {
+		vistaValor = document.querySelector('#vistaValor');
+		vistaValor.setAttribute('value', "");
+		vistaValor.innerHTML = "0"
+
+		num1Action = document.querySelector('#num1Action');
+		num1Action.setAttribute('value', "");
+
+		num2Action = document.querySelector('#num2Action');
+		num2Action.setAttribute('value', "");
+
+	}
+
+</script>
+
+</html>

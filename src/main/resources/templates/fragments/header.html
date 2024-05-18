@@ -1,0 +1,19 @@
+<div class="container pt-3">
+	<div class="div-container-opciones-header">
+		<form th:action="@{/web/actionMenu/index}" method="get">
+			<button type="submit" class="btn btn-link">Resumen</button>
+		</form>
+		<form th:action="@{/web/actionMenu/categorias}" method="get">
+			<button type="submit" class="btn btn-link">Categorias</button>
+		</form>
+		<form th:action="@{/web/actionMenu/productos}" method="get">
+			<button type="submit" class="btn btn-link">Productos</button>
+		</form>
+		<form th:action="@{/web/actionMenu/clientes}" method="get">
+			<button type="submit" class="btn btn-link">Clientes</button>
+		</form>
+		<form th:action="@{/web/actionMenu/ventas}" method="get">
+			<button type="submit" class="btn btn-link">Ventas</button>
+		</form>
+	</div>
+</div>
