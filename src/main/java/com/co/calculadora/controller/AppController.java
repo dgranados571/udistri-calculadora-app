@@ -25,7 +25,7 @@ import com.co.calculadora.dto.FormObject;
 @Controller
 public class AppController {
 	
-	String hostApi = "calculadora_api"; //  127.0.0.1
+	String hostApi = "calculadora_api"; //127.0.0.1
 
 	@GetMapping("/web/udistri")
 	public String getUdistriControl(HttpServletRequest request, HttpServletResponse reponse, Model model) {
